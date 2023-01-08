@@ -9,7 +9,7 @@
 - A match rule is defined like this:
 
 ```
-{ "task" : "points" }
+{ "task" : "±points" }
 ```
 
 Where `task` is the action done by the player,
