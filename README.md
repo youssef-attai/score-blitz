@@ -1,3 +1,0 @@
-![Logo](./scoreblitz.svg)
-
-# ScoreBlitz
