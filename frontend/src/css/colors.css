@@ -1,0 +1,31 @@
+:root {
+  --warm--gray-1000: #11100f;
+  --warm--gray-900: #1c1917;
+  --warm--gray-700: #44403c;
+  --warm--gray-600: #57534e;
+  --blue-600: #2563eb;
+  --warm--gray-300: #d6d3d1;
+  --warm--gray-50: #fafaf9;
+  --green-600: #16a34a;
+  --red-600: #dc2626;
+  --yellow-300: #fde047;
+}
+
+:root {
+  --bg-color: var(--warm--gray-1000);
+  --create-match-container-color: var(--warm--gray-900);
+  --join-match-container-color: var(--warm--gray-700);
+  --normal-button-color: var(--blue-600);
+  --danger-button-color: var(--red-600);
+  --light-text-color: var(--warm--gray-50);
+  --dark-text-color: var(--warm--gray-700);
+  --placeholder-text-color: var(--warm--gray-300);
+  --plus-color: var(--green-600);
+  --minus-color: var(--red-600);
+  --pts-color: var(--yellow-300);
+  --header-container-color: var(--warm--gray-700);
+  --action-container-color: var(--warm--gray-300);
+  --scoreboard-container-color: var(--warm--gray-900);
+  --history-container-color: var(--warm--gray-900);
+  --history-text-color: var(--warm--gray-700);
+}
