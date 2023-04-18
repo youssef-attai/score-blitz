@@ -1,5 +1,5 @@
 <a href="#">
-  <img src="./scorelblitz.svg"/>
+  ![Logo](./scoreblitz.svg)
 </a>
 
 # ScoreBlitz
