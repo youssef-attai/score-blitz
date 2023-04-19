@@ -2,6 +2,10 @@ import { connect } from "mongoose";
 import express, { json } from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import matchRouter from "./routers/match.js";
+import authRouter from "./routers/auth.js";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -21,6 +25,21 @@ connect(process.env.MONGO_URI, {
         console.error("MongoDB connection error:", error);
     });
 
+app.use(cors({
+    credentials: true,
+    origin: "http://localhost:5173",
+}));
+app.use(json());
+app.use(cookieParser());
+
+// Basic logger
+app.use((req, _, next) => {
+    console.log(`${req.method} ${req.path}`);
+    next();
+});
+
+app.use('/auth', authRouter);
+app.use('/match', matchRouter);
 
 io.on("connection", (socket) => {
     console.log("A user connected");
