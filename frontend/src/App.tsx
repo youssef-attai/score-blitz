@@ -1,9 +1,24 @@
+import { useEffect } from "react";
+import { Outlet } from "react-router-dom";
+import { useAuth } from "./contexts/Auth";
+import useAsync from "./hooks/useAsync";
 
 function App() {
-  return (
-    <div className="App">
-    </div>
-  )
+    const { me } = useAuth();
+
+    const { execute, status } = useAsync(me, false);
+
+    useEffect(() => {
+        execute()
+            .then(() => {})
+            .catch(() => {});
+    }, []);
+
+    if (status === "pending") {
+        return <div>Loading...</div>;
+    }
+
+    return <Outlet />;
 }
 
-export default App
+export default App;
