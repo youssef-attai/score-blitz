@@ -5,10 +5,9 @@ import matchRouter from "./routers/match.js";
 import authRouter from "./routers/auth.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import { CLIENT_URL } from "./env.js";
+import { PORT } from "./env.js";
 import connectDB from "./db.js"
-
-import * as dotenv from "dotenv";
-dotenv.config();
 
 const app = express();
 const server = createServer(app);
@@ -18,7 +17,7 @@ connectDB();
 
 app.use(cors({
     credentials: true,
-    origin: "http://localhost:5173",
+    origin: CLIENT_URL,
 }));
 app.use(json());
 app.use(cookieParser());
@@ -40,6 +39,6 @@ io.on("connection", (socket) => {
     });
 });
 
-server.listen(3000, () => {
+server.listen(PORT, () => {
     console.log("Server is running on http://localhost:3000");
 });
