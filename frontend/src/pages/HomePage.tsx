@@ -1,26 +1,38 @@
 import { useRef } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/Auth";
+import { Link, useNavigate } from "react-router-dom";
+import * as matchAPI from "../api/match";
+import useAsync from "../hooks/useAsync";
+import useAuth from "../hooks/useAuth";
 
-function Home() {
-    const createMatchNameRef = useRef<HTMLInputElement>(null);
-    const joinMatchNameRef = useRef<HTMLInputElement>(null);
-
+function HomePage() {
     const {
         user,
         logout
     } = useAuth();
+
+    const navigate = useNavigate();
+
+    const createMatchNameRef = useRef<HTMLInputElement>(null);
+    const joinMatchNameRef = useRef<HTMLInputElement>(null);
+
+    const { execute: createMatch, status: createMatchStatus } = useAsync(async () => {
+        if (createMatchNameRef.current && createMatchNameRef.current.value !== "" && user) {
+            if (await matchAPI.create(createMatchNameRef.current.value, user.username)) {
+                navigate(`/${createMatchNameRef.current.value}`);
+            }
+        }
+    }, false);
 
     function logoutOnClick() {
         logout();
     }
 
     function joinOnClick() {
-        console.log("join", joinMatchNameRef.current?.value);
+        navigate(`/${joinMatchNameRef.current?.value}`);
     }
 
     function createOnClick() {
-        console.log("create", createMatchNameRef.current?.value);
+        createMatch().then(() => { }).catch(() => { });
     }
 
     function editProfileOnClick() {
@@ -29,7 +41,6 @@ function Home() {
 
     return (
         <>
-            <div className="logo"></div>
             {!user && (
                 <p>You're not logged in, <Link to="/whoru">click here to login.</Link></p>
             )}
@@ -57,4 +68,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default HomePage;
