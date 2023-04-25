@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
+import { RequestStatus } from "../types";
 
 export default function <T, E = string>(
     asyncFunction: () => Promise<T>,
     immediate = true
 ) {
-    const [status, setStatus] = useState<
-        "idle" | "pending" | "success" | "error"
-    >("idle");
+    const [status, setStatus] = useState<RequestStatus>("idle");
 
     const [value, setValue] = useState<T | null>(null);
     const [error, setError] = useState<E | null>(null);

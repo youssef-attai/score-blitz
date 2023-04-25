@@ -23,3 +23,4 @@ export interface APIError {
     message: string;
 }
 
+export type RequestStatus = "idle" | "pending" | "success" | "error";
