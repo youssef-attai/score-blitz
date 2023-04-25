@@ -19,3 +19,7 @@ export interface Match {
     status: "new" | "playing" | "ended";
 }
 
+export interface APIError {
+    message: string;
+}
+
