@@ -2,7 +2,9 @@ import { useCallback, useEffect, useState } from "react";
 import { RequestStatus } from "../types";
 
 export default function <T, E = string>(
-    asyncFunction: () => Promise<T>,
+    asyncFunction: (
+        ...args: any[]
+    ) => Promise<T>,
     immediate = true
 ) {
     const [status, setStatus] = useState<RequestStatus>("idle");
@@ -10,12 +12,12 @@ export default function <T, E = string>(
     const [value, setValue] = useState<T | null>(null);
     const [error, setError] = useState<E | null>(null);
 
-    const execute = useCallback(async () => {
+    const execute = useCallback(async (...args: any[]) => {
         setStatus("pending");
         setValue(null);
         setError(null);
         try {
-            const response = await asyncFunction();
+            const response = await asyncFunction(...args);
             setValue(response);
             setStatus("success");
         } catch (error) {
