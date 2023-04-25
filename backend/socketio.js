@@ -9,6 +9,7 @@ import { CLIENT_URL } from "./env.js";
 const io = new Server(server, {
     cors: {
         origin: CLIENT_URL,
+        credentials: true,
     },
 });
 
