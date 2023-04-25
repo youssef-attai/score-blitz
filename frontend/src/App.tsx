@@ -1,24 +1,29 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { useAuth } from "./contexts/Auth";
-import useAsync from "./hooks/useAsync";
+import Navbar from "./components/Navbar";
+import useAuth from "./hooks/useAuth";
 
 function App() {
-    const { me } = useAuth();
-
-    const { execute, status } = useAsync(me, false);
+    const { me, meStatus, meValue, user } = useAuth();
 
     useEffect(() => {
-        execute()
-            .then(() => {})
-            .catch(() => {});
-    }, []);
+        if (meStatus === "idle" && (!user || !meValue)) {
+            me();
+        }
+    }, [meStatus]);
 
-    if (status === "pending") {
-        return <div>Loading...</div>;
-    }
-
-    return <Outlet />;
+    return (
+        <>
+            <Navbar />
+            {
+                (meStatus === "pending") ? (
+                    <div>Loading...</div>
+                ) : (
+                    <Outlet />
+                )
+            }
+        </>
+    );
 }
 
 export default App;

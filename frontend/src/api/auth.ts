@@ -1,12 +1,12 @@
 import { User } from "../types";
 
-export async function me(): Promise<User | null> {
+export async function me(): Promise<User> {
     const response = await fetch('http://localhost:3000/auth/me', {
         credentials: 'include',
     });
 
     if (response.status === 401) {
-        return null;
+        throw new Error('Unauthorized');
     } else if (response.status !== 200) {
         throw new Error('Unexpected response');
     }
@@ -17,7 +17,7 @@ export async function me(): Promise<User | null> {
     return user;
 }
 
-export async function login(username: string, password: string): Promise<User | null> {
+export async function login(username: string, password: string): Promise<User> {
     const response = await fetch('http://localhost:3000/auth/login', {
         method: 'POST',
         credentials: 'include',
@@ -28,7 +28,7 @@ export async function login(username: string, password: string): Promise<User | 
     });
 
     if (response.status === 401) {
-        return null;
+        throw new Error('Unauthorized');
     } else if (response.status !== 200) {
         throw new Error('Unexpected response');
     }
