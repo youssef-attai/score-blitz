@@ -28,24 +28,23 @@ router.post("/login", async (req, res) => {
 
     const user = await User.findOne({ username, password });
 
-
-    if (user) {
-        user.token = randomBytes(64).toString("hex");
-        await user.save();
-
-
-        res.cookie("token", user.token, {
-            httpOnly: true,
-            maxAge: 1000 * 60 * 60 * 24 * 7
-        });
-
-        return res.status(200).json({
-            username: user.username
-        });
+    if (!user) {
+        return res.status(401).json({ message: "Invalid credentials" });
     }
 
+    user.token = randomBytes(64).toString("hex");
+    await user.save();
 
-    return res.status(401).json({ message: "Invalid credentials" });
+    res.cookie("token", user.token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    });
+
+    return res.status(200).json({
+        _id: user._id,
+        username: user.username,
+        token: user.token
+    });
 });
 
 router.post("/create", async (req, res) => {
