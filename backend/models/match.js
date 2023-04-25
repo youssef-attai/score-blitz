@@ -2,9 +2,11 @@ import { Schema, model } from "mongoose";
 
 const matchSchema = new Schema({
     name: { type: String, unique: true },
-    organizer: { name: String },
+    organizer: { type: Schema.Types.ObjectId, ref: "User" },
     players: {
-        type: [{ name: String, score: Number }],
+        type: [{
+            player: { type: Schema.Types.ObjectId, ref: "User" },
+        }],
         default: [],
     },
     actions: {
