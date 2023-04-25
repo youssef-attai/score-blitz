@@ -1,4 +1,3 @@
-import { connect } from "mongoose";
 import express, { json } from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
@@ -6,6 +5,7 @@ import matchRouter from "./routers/match.js";
 import authRouter from "./routers/auth.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import connectDB from "./db.js"
 
 import * as dotenv from "dotenv";
 dotenv.config();
@@ -14,16 +14,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
-connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(() => {
-        console.log("MongoDB connected");
-    })
-    .catch((error) => {
-        console.error("MongoDB connection error:", error);
-    });
+connectDB();
 
 app.use(cors({
     credentials: true,
