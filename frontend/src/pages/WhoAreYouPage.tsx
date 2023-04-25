@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../contexts/Auth";
+import useAuth from "../hooks/useAuth";
 
-function WhoAreYou() {
+function WhoAreYouPage() {
     const {
         user,
         login,
@@ -58,4 +58,4 @@ function WhoAreYou() {
     );
 }
 
-export default WhoAreYou;
+export default WhoAreYouPage;
