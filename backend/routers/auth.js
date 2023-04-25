@@ -53,8 +53,16 @@ router.post("/create", async (req, res) => {
 
     const newUser = new User({ username, password });
     newUser.token = randomBytes(64).toString("hex");
-    await newUser.save();
 
+    try {
+        await newUser.save();
+    } catch (error) {
+        if (error.code === 11000) {
+            return res.status(400).json({ message: "Username already exists" });
+        } else {
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    }
 
     res.cookie("token", newUser.token, {
         httpOnly: true,
