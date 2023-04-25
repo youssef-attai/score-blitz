@@ -1,4 +1,3 @@
-import express, { json } from "express";
 import matchRouter from "./routers/match.js";
 import authRouter from "./routers/auth.js";
 import cookieParser from "cookie-parser";
@@ -7,8 +6,8 @@ import { CLIENT_URL } from "./env.js";
 import server from "./server.js";
 import { PORT } from "./env.js";
 import connectDB from "./db.js"
-
-const app = express();
+import app from "./app.js";
+import { json } from "express";
 import { setupSocketIO } from "./socketio.js";
 
 connectDB();
