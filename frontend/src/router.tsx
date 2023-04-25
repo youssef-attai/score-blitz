@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import Home from "./pages/Home";
-import Match from "./pages/Match";
-import WhoAreYou from "./pages/WhoAreYou";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { SocketProvider } from "./contexts/SocketContext";
+import HomePage from "./pages/HomePage";
+import MatchPage from "./pages/MatchPage";
+import WhoAreYouPage from "./pages/WhoAreYouPage";
 
 export default createBrowserRouter([
     {
@@ -11,17 +13,22 @@ export default createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <Home />,
-            },
-
-            {
-                path: "/:matchName",
-                element: <Match />,
+                element: <HomePage />,
             },
             {
                 path: "/whoru",
-                element: <WhoAreYou />,
+                element: <WhoAreYouPage />,
             },
-        ]
+            {
+                path: "/:matchName",
+                element: (
+                    <ProtectedRoute>
+                        <SocketProvider>
+                            <MatchPage />
+                        </SocketProvider>
+                    </ProtectedRoute>
+                ),
+            },
+        ],
     }
 ]);
