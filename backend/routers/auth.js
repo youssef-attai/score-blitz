@@ -19,6 +19,7 @@ router.get("/me", async (req, res) => {
 
     return res.status(200).json({
         username: user.username,
+        token: user.token
     });
 });
 
@@ -62,6 +63,7 @@ router.post("/create", async (req, res) => {
 
     return res.status(200).json({
         username: newUser.username
+        token: newUser.token
     });
 });
 
