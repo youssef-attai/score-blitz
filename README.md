@@ -2,3 +2,4 @@
 
 # ScoreBlitz
 
+An activity-independant real-time scoreboard.
