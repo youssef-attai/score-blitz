@@ -1,6 +1,5 @@
 import express, { json } from "express";
 import { createServer } from "http";
-import { Server } from "socket.io";
 import matchRouter from "./routers/match.js";
 import authRouter from "./routers/auth.js";
 import cookieParser from "cookie-parser";
@@ -11,7 +10,7 @@ import connectDB from "./db.js"
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+import { setupSocketIO } from "./socketio.js";
 
 connectDB();
 
@@ -31,13 +30,7 @@ app.use((req, _, next) => {
 app.use('/auth', authRouter);
 app.use('/match', matchRouter);
 
-io.on("connection", (socket) => {
-    console.log("A user connected");
-
-    socket.on("disconnect", () => {
-        console.log("A user disconnected");
-    });
-});
+setupSocketIO();
 
 server.listen(PORT, () => {
     console.log("Server is running on http://localhost:3000");
