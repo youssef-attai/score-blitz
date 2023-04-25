@@ -6,6 +6,7 @@ const matchSchema = new Schema({
     players: {
         type: [{
             player: { type: Schema.Types.ObjectId, ref: "User" },
+            score: { type: Number, default: 0 },
         }],
         default: [],
     },
