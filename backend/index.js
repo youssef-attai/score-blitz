@@ -1,15 +1,14 @@
 import express, { json } from "express";
-import { createServer } from "http";
 import matchRouter from "./routers/match.js";
 import authRouter from "./routers/auth.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { CLIENT_URL } from "./env.js";
+import server from "./server.js";
 import { PORT } from "./env.js";
 import connectDB from "./db.js"
 
 const app = express();
-const server = createServer(app);
 import { setupSocketIO } from "./socketio.js";
 
 connectDB();
